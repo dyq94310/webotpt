@@ -40,3 +40,12 @@ mvn jasypt:decrypt-value -Djasypt.encryptor.password="password" -Djasypt.plugin.
 </dependency>
 ```
 
+## use docker
+```bash
+# 构建image
+docker build -t myotp:v1.1.19 .
+
+# 启动 传入密钥
+docker run -d -p 8090:8090 -e JAVA_ARGS='-Djasypt.encryptor.password=passwd'   --name otp myotp:v1.1.19 
+```
+
