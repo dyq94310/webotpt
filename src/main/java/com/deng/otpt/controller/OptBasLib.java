@@ -71,8 +71,8 @@ public class OptBasLib {
         return "Unauthorization";
     }
 
-    @GetMapping("update/{id}")
-    public String updateLeftTime(@PathVariable("id") Integer time) {
+    @GetMapping("update/{minutes}")
+    public String updateLeftTime(@PathVariable("minutes") Integer time) {
         minsLeft = time;
         return "success";
     }
