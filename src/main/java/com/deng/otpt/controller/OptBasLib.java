@@ -5,10 +5,11 @@ import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.bastiaanjansen.otp.HMACAlgorithm;
 import com.bastiaanjansen.otp.TOTP;
 
@@ -59,22 +60,33 @@ public class OptBasLib {
 
     }
 
-    @GetMapping("/")
+    @GetMapping("/test")
     public String getOtpCode() {
-
-        if (minsLeft > 0) {
-            // 过期时间
-            int exSecond = 30 - LocalDateTime.now().getSecond() % 30;
-            String string = String.format("otp=%s ,expires later :%ssecond!!", OTP.now(), exSecond);
-            return string;
-        }
-        return "Unauthorization";
+        return getOtp();
     }
+
 
     @GetMapping("update/{minutes}")
     public String updateLeftTime(@PathVariable("minutes") Integer time) {
         minsLeft = time;
         return "success";
+    }
+
+    @MessageMapping("/otp")
+    @SendTo("/topic/otp")
+    public String greeting(String message) throws Exception {
+        Thread.sleep(1000); // simulated delay
+        return getOtp();
+    }
+
+    private String getOtp() {
+        if (minsLeft > 0) {
+            // 过期时间
+            int exSecond = 30 - LocalDateTime.now().getSecond() % 30;
+            String string = String.format("otp=%s ,expires :%s S .\n Now：%s", OTP.now(), exSecond, LocalDateTime.now().toString());
+            return string;
+        }
+        return "Unauthorization";
     }
 
 }
