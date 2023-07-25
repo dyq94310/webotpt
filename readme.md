@@ -1,5 +1,6 @@
 # Otp web
 通过web，在规定的有效期内可获取otp二次授权密码
+![](./img/demo.gif)
 
 ## otp密码加解密
 otp密码比较敏感，既然要上传GitHub，需做好加密
