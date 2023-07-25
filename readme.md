@@ -17,9 +17,11 @@ mvn jasypt:decrypt-value -Djasypt.encryptor.password="password" -Djasypt.plugin.
 
 
 ## 接口列表
-- port:/ :获取otp
+- http://localhost:8090/ 
+> 可自动刷新otp的主页
+- http://localhost:8090/test :获取一次otp
 > otp=987728 ,expires later :7second!!
-- port:/update/{minutes} :更新密码有效期
+- http://localhost:8090/update/{minutes} :更新密码有效期
 
 ## 技术列表
 1 使用otp-java生成otp密码
@@ -42,6 +44,8 @@ mvn jasypt:decrypt-value -Djasypt.encryptor.password="password" -Djasypt.plugin.
 
 ## use docker
 ```bash
+cd [codepath]
+
 # 构建image
 docker build -t myotp:v1.1.19 .
 
@@ -49,3 +53,13 @@ docker build -t myotp:v1.1.19 .
 docker run -d -p 8090:8090 -e JAVA_ARGS='-Djasypt.encryptor.password=passwd'   --name otp myotp:v1.1.19 
 ```
 
+
+## 项目地址
+
+[jaspty](https://github.com/ulisesbocchio/jasypt-spring-boot)
+
+[otp-java](https://github.com/BastiaanJansen/otp-java)
+
+[extract_otp_secrets](https://github.com/scito/extract_otp_secrets)
+
+[本项目](https://github.com/dyq94310/webotpt)
