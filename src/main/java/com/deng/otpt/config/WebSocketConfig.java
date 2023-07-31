@@ -17,6 +17,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/otp-websocket");
+        registry.addEndpoint("/otp-websocket").setAllowedOrigins("https://otp.dengyongqi.xyz","https://dengyongqi.xyz");
     }
 }

@@ -1,12 +1,17 @@
 // Function to get the WebSocket URL based on the environment
 function getWebSocketURL() {
 
+    let protocol = 'ws';
+    if (document.location.protocol === 'https:') {
+        protocol = 'wss';
+    }
+
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        return 'ws://localhost:8090/otp-websocket';
+        return `${protocol}://localhost:8090/otp-websocket`;
     } else {
         // Get the current domain from the window.location object
         const currentDomain = window.location.hostname;
-        return `wss://${currentDomain}/otp-websocket`;
+        return `${protocol}://${currentDomain}/otp-websocket`;
     }
 }
 
