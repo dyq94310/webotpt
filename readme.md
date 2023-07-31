@@ -1,5 +1,5 @@
 # Otp web
-通过web，在规定的有效期内可获取otp二次授权密码
+通过wss，在规定的有效期内可获取otp二次授权密码
 
 ![](/img/demo.gif)
 
